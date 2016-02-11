@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_pricelist_version_form_custom_view" model="ir.ui.view">
+            <field name="name">product.pricelist.version.custom.form</field>
+            <field name="model">product.pricelist.version</field>
+            <field name="inherit_id" ref="product.product_pricelist_version_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="priority" required="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="product_pricelist_version_tree_custom_view" model="ir.ui.view">
+            <field name="name">product.pricelist.version.custom.tree</field>
+            <field name="model">product.pricelist.version</field>
+            <field name="inherit_id" ref="product.product_pricelist_version_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="priority" required="1"/>
+                </xpath>
+            </field>
+        </record>        
+
+        <record id="product_pricelist_custom_view" model="ir.ui.view">
+            <field name="name">product.pricelist.custom.form</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='version_id']/form/group/field[@name='active']" position="after">
+                    <field name="priority" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='version_id']/tree/field[@name='name']" position="before">
+                    <field name="priority" required="1" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
