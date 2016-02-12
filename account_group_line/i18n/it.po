@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_group_line
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-12 07:53+0000\n"
+"PO-Revision-Date: 2016-02-12 07:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_group_line
+#: field:account.journal,group_invoice_lines_by_account:0
+msgid "Group lines depending on account"
+msgstr "Raggruppa linee in base al conto"
+
+#. module: account_group_line
+#: code:addons/account_group_line/models/account_invoice.py:47
+#, python-format
+msgid "Grouping"
+msgstr "Raggruppamento"
+
+#. module: account_group_line
+#: help:account.journal,group_invoice_lines_by_account:0
+msgid "If checked, the account move lines linked to this journal will be grouped (if possible) during their creation at the moment of invoice validation."
+msgstr "Se spuntato, le righe di movimento contabile collegate a questo sezionale saranno raggruppate (se possibile) al momento della loro creazione nel corso della validazione delle fatture."
+
+#. module: account_group_line
+#: model:ir.model,name:account_group_line.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: account_group_line
+#: model:ir.model,name:account_group_line.model_account_journal
+msgid "Journal"
+msgstr "Sezionale"
+
