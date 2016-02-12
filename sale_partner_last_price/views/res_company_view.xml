@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="view_company_inherit_form2_last_prices" model="ir.ui.view">
+        <field name="name">view.company.last.prices.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="sale.view_company_inherit_form2"/>
+        <field name="arch" type="xml">		
+			<xpath expr="//field[@name='sale_note']" position="before">
+				<field name="keep_last_days" required="1"/>
+			</xpath>
+        </field>
+    </record>
+  </data>
+</openerp>
