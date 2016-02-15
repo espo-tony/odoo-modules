@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 ISA s.r.l. (<http://www.isa.it>).
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
@@ -27,6 +24,15 @@ class sale_order_commission(models.Model):
 
     _inherit = 'sale.order'
 
+    @api.one
+    def _get_is_salesagent(self):
+        self.is_salesagent = self.env['res.users'].browse(self._uid).salesagent
+
+    def _get_is_salesagent_default(self):
+        return self.env['res.users'].browse(self._uid).salesagent
+
+    is_salesagent = fields.Boolean(compute='_get_is_salesagent', string="Agente", default=_get_is_salesagent_default)  
+
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
         res = super(sale_order_commission, self).onchange_partner_id(cr, uid, ids, partner_id, context=context)
         if res and partner_id:
@@ -36,6 +42,8 @@ class sale_order_commission(models.Model):
                     user = partner.salesagent_id.user_id.id
                 elif partner.salesagent_id.user_ids:
                     user = partner.salesagent_id.user_ids.ids[0]
+                else:
+                    user = uid
                 if  user: 
                     if 'value' in res:
                         res['value'].update({'user_id':user})
@@ -46,13 +54,20 @@ class sale_order_commission(models.Model):
     @api.onchange('user_id')
     def onchange_user_id(self):
         if self.order_line:
-            return {'warning':{'title': _('Warning!'), 'message': _('This order already contains some lines, commission on those lines will not be automatically recomputed!')} }
-    
+            return {'warning':{'title': _('Warning!'), 'message': _('This order already contains some lines, commission on those lines will not be automatically recomputed!')} }  
 
 class sale_order_line_commission(models.Model):
 
     _inherit = 'sale.order.line'
-    
+
+    @api.one
+    def _get_is_salesagent(self):
+        self.is_salesagent = self.env['res.users'].browse(self._uid).salesagent
+
+    def _get_is_salesagent_default(self):
+        return self.env['res.users'].browse(self._uid).salesagent
+
+    is_salesagent = fields.Boolean(compute='_get_is_salesagent', string="Agente", default=_get_is_salesagent_default)      
     commission_perc = fields.Float(string="Commission [%]", digits_compute= dp.get_precision('Account'),)
     commission_amount = fields.Float(compute="_compute_commission_amount", string="Commission", digits_compute= dp.get_precision('Account'),)    
     

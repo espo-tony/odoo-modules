@@ -227,8 +227,8 @@ E’ possibile riportare una riga di provvigione dallo stato ‘Fatturato’ a
 Non è possibile annullare righe di commissione già pagate;
 """,
     'author': 'Antonio Esposito',
-    'website': 'https://it.linkedin.com/in/antonio-esposito-97668782',    
-    'license': 'AGPL-3',       
+    'website': 'https://it.linkedin.com/in/antonio-esposito-97668782',
+    "license": "AGPL-3",  
     'depends': ['account',
                 'product',
                 'sale',

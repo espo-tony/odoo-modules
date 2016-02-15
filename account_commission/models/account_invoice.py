@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 ISA s.r.l. (<http://www.isa.it>).
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
@@ -37,6 +34,8 @@ class account_invoice_commission(models.Model):
                     user = partner.salesagent_id.user_id.id
                 elif partner.salesagent_id.user_ids:
                     user = partner.salesagent_id.user_ids.ids[0]
+                else:
+                    user = self._uid
                 if  user: 
                     if 'value' in res:
                         res['value'].update({'user_id':user})
@@ -106,13 +105,13 @@ class account_invoice_line_commission(models.Model):
 
                 if comm_perc == 0.0:                                
                     if company.commission_priority1:
-                        comm_perc = company_obj.get_commission_perc(company.commission_priority1, product, partner_id)
+                        comm_perc = company_obj.get_commission_perc(company.commission_priority1, product, partner_id, salesagent_id.id)
                     if not comm_perc and company.commission_priority2:
-                        comm_perc = company_obj.get_commission_perc(company.commission_priority2, product, partner_id)                
+                        comm_perc = company_obj.get_commission_perc(company.commission_priority2, product, partner_id, salesagent_id.id)                
                     if not comm_perc and company.commission_priority3:
-                        comm_perc = company_obj.get_commission_perc(company.commission_priority3, product, partner_id)                
+                        comm_perc = company_obj.get_commission_perc(company.commission_priority3, product, partner_id, salesagent_id.id)                
                     if not comm_perc and company.commission_priority4:   
-                        comm_perc = company_obj.get_commission_perc(company.commission_priority4, product, partner_id)     
+                        comm_perc = company_obj.get_commission_perc(company.commission_priority4, product, partner_id, salesagent_id.id)     
             res['value']['commission_perc'] = comm_perc           
         return res
 

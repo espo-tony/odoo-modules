@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 ISA s.r.l. (<http://www.isa.it>).
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
@@ -46,12 +43,28 @@ class res_partner_commission(models.Model):
 
     _inherit = 'res.partner'
 
+    def _get_default_salesagent(self):
+        user = self.env['res.users'].browse(self._uid).partner_id
+        if not user.salesagent:
+            return self.env['res.partner'].browse(0)
+        else:
+            return user
+
     def _get_commission_product(self):
         if not self.salesagent:
             return self.env['product.product'].browse(0)
         if self.company_id:
             return self.company_id.commission_product_id
         return self.env['res.users'].browse(self._uid).company_id.commission_product_id
+
+    @api.one
+    def _get_is_salesagent(self):
+        self.is_salesagent = self.env['res.users'].browse(self._uid).salesagent
+
+    def _get_is_salesagent_default(self):
+        return self.env['res.users'].browse(self._uid).salesagent
+
+    is_salesagent = fields.Boolean(compute='_get_is_salesagent', string="Agente", default=_get_is_salesagent_default)  
 
     salesagent = fields.Boolean(string='Salesagent', help="If flagged, this partner is a salesagent", default=False, )
     is_overriding = fields.Boolean(strin='Salesagent overrides default commission rules', default=False)
@@ -64,7 +77,7 @@ class res_partner_commission(models.Model):
 
     commission_mode = fields.Selection([('invoiced','Invoiced'),('paid','Paid')], string="Commission Mode", help="Defines the maturity conditions for commissions", default=None, )    
     
-    salesagent_id = fields.Many2one('res.partner', string="Salesagent", )
+    salesagent_id = fields.Many2one('res.partner', string="Salesagent", default=_get_default_salesagent, )
     salesagent_parent_id = fields.Many2one('res.partner', string="Salesagent-Chief", )
     salesagent_child_ids = fields.One2many('res.partner', 'salesagent_parent_id', string="Attendant Salesagents")
     salesagent_customer_ids = fields.One2many('res.partner','salesagent_id', string="Customers")

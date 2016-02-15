@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 ISA s.r.l. (<http://www.isa.it>).
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
@@ -35,6 +32,7 @@ class product_template_commission(models.Model):
     product_commission_perc = fields.Float(string="Commission [%]", digits_compute= dp.get_precision('Account'), )
     no_commission = fields.Boolean(string="No Commission", help="If flagged, won't be computed commissions on this product", default=_get_default_no_commission, ) 
     is_commission = fields.Boolean(string="Commission", help="If flagged, this product will be considered as a commission", default=False, )
+    salesagent_cant_sell = fields.Boolean(string="Salesagent can't sell", help="If flagged, this product won't be available for selling by salesagents", default=False, )
 
     @api.onchange('categ_id')
     def onchange_categ_id(self):

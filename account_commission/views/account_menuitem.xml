@@ -10,8 +10,9 @@
         <menuitem action="account.action_invoice_tree3" id="menu_salesagent_action_invoice_tree3" parent="menu_salesagent_finance_receivables"/>		
         <menuitem action="action_account_commission" name="Salesagent Commissions" id="menu_action_account_commission" parent="menu_salesagent_finance_receivables" sequence="20"/>
 
-        <menuitem action="action_account_commission" name="Salesagent Commissions" id="menu_action_account_commission" parent="account.menu_finance_payables" sequence="20"/>              
-        <menuitem action="action_salesagent_form"  name="Salesagents" id="menu_finance_receivables_salesagents" parent="account.menu_finance_receivables" sequence="110"/>
+        <menuitem action="action_account_commission" name="Salesagent Commissions" id="menu_action_account_commission" parent="account.menu_finance_payables" sequence="20"/>
+        <menuitem action="action_account_commission" name="Salesagent Commissions" id="menu_salesagent_action_account_commission" parent="menu_salesagent_finance_receivables" sequence="20"/>                       
+        <menuitem action="action_salesagent_form"  name="Salesagents" id="menu_finance_payables_salesagents" parent="account.menu_finance_payables" sequence="110"/>
         
     </data>
 </openerp>
